@@ -1,0 +1,26 @@
+{
+  "admin": {
+    "passHash": "2bb80d537b1da3e38bd30361aa855686bde0eacd7162fef6a25fe97bf527a25b",
+    "token": "",
+    "stats": {
+      "games": 0,
+      "wins": 0
+    }
+  },
+  "testing": {
+    "passHash": "ecd71870d1963316a97e3ac3408c9835ad8cf0f3c1bc703527c30265534f75ae",
+    "token": "61f4e91eca944746ae034ba160140b57",
+    "stats": {
+      "games": 0,
+      "wins": 0
+    }
+  },
+  "demo": {
+    "passHash": "d3ad9315b7be5dd53b31a273b3b3aba5defe700808305aa16a3062b76658a791",
+    "token": "a9dd6a4a08384b44915dd313bdc89c22",
+    "stats": {
+      "games": 0,
+      "wins": 0
+    }
+  }
+}
