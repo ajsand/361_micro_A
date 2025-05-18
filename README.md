@@ -9,7 +9,7 @@ Folder map
 * auth.hpp / auth.cpp  – C++ helpers that talk to server  
 
 ----------------------------------------------------------------------
-How to run
+# How to run
 
 1. Start server in its folder  
 python login_service.py 
@@ -24,7 +24,7 @@ g++ -std=c++17 test_auth.cpp auth.cpp -lcurl -o test_auth
 All requests are HTTP POST with header  
 `Content-Type: application/json`
 
-Route list:
+# Route list:
 * **/register**  body `{ "username":"u", "password":"p" }`  
               reply `{ "status":"ok" }`
 * **/login**     body `{ "username":"u", "password":"p" }`  
@@ -33,20 +33,22 @@ Route list:
               reply `{ "status":"ok", "valid": true | false }`
 
 
-# Register
+# Request & Receive Data
+Register:
 curl -X POST http://localhost:5050/register \
      -H "Content-Type: application/json" \
      -d '{"username":"user","password":"password123"}'
 
-# Log in and capture token
+Log in and capture token:
 token=$(curl -s -X POST http://localhost:5050/login \
         -H "Content-Type: application/json" \
         -d '{"username":"user","password":"password123"}' | jq -r .token)
 
-# Validate token 
+Validate token:
 curl -X POST http://localhost:5050/validate \
      -H "Content-Type: application/json" \
      -d "{\"token\":\"$token\"}"
-# returns  {"status":"ok","valid":true}
+
+returns  {"status":"ok","valid":true}
 
 ----------------------------------------------------------------------
