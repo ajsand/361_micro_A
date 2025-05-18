@@ -34,17 +34,20 @@ All requests are HTTP POST with header
 
 
 # Request & Receive Data
-Register:
+Register
+---------------------------------
 curl -X POST http://localhost:5050/register \
      -H "Content-Type: application/json" \
      -d '{"username":"user","password":"password123"}'
 
-Log in and capture token:
+Log in and capture token
+---------------------------------
 token=$(curl -s -X POST http://localhost:5050/login \
         -H "Content-Type: application/json" \
         -d '{"username":"user","password":"password123"}' | jq -r .token)
 
-Validate token:
+Validate token
+---------------------------------
 curl -X POST http://localhost:5050/validate \
      -H "Content-Type: application/json" \
      -d "{\"token\":\"$token\"}"
