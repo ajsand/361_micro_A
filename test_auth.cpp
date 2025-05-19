@@ -8,20 +8,20 @@ int main() {
 
     /* 1. register */
     if (registerUser(user, pass))
-        std::cout << "registerUser OK\n";
+        std::cout << "✔ registerUser OK\n";
     else
-        std::cout << "registerUser skipped (user may already exist)\n";
+        std::cout << "• registerUser skipped (user may already exist)\n";
 
     /* 2. login and capture token */
     if (loginUser(user, pass, token))
-        std::cout << "loginUser OK   token = " << token << '\n';
+        std::cout << "✔ loginUser OK   token = " << token << '\n';
     else {
-        std::cout << "loginUser failed\n";
+        std::cout << "✖ loginUser failed\n";
         return 1;
     }
 
     /* 3. validate token */
     bool valid = validateToken(token);
-    std::cout << "validateToken returned " << (valid ? "true" : "false") << '\n';
+    std::cout << "✔ validateToken returned " << (valid ? "true" : "false") << '\n';
     return 0;
 }
