@@ -33,7 +33,7 @@ All requests are HTTP POST with header
 * **/validate**  body `{ "token":"<uuid>" }`  
               reply `{ "status":"ok", "valid": true | false }`
 
-
+----------------------------------------------------------------------
 # Request & Receive Data
 
 Programmatic **request** 
@@ -56,6 +56,8 @@ curl_easy_perform(curl);
 auto j = nlohmann::json::parse(resp.str());
 std::string token = j.value("token", "");   
 ```
+----------------------------------------------------------------------
+# UML Sequence Diagram
 
-
+![UML sequence diagram](docs/UML_diagram.png)
 ----------------------------------------------------------------------
