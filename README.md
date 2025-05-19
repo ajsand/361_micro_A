@@ -1,6 +1,6 @@
 
 Small Python HTTP service that stores user accounts
-locally and lets a C++ chess program create and validate logins.  
+locally and lets any program create and validate logins.  
 All calls use JSON over HTTP at **http://localhost:5050**.
 
 Folder map
