@@ -25,7 +25,7 @@ g++ -std=c++17 test_auth.cpp auth.cpp -lcurl -o test_auth
 All requests are HTTP POST with header  
 `Content-Type: application/json`
 
-# Route list:
+# Route list
 * **/register**  body `{ "username":"u", "password":"p" }`  
               reply `{ "status":"ok" }`
 * **/login**     body `{ "username":"u", "password":"p" }`  
