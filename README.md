@@ -6,9 +6,9 @@ All calls use JSON over HTTP at **http://localhost:5050**.
 Folder map
 * login_service.py     – Python server  
 * chess_users.json     – local user database 
-* auth.hpp / auth.cpp  – C++ helpers that talk to server  
-
-----------------------------------------------------------------------
+* auth.hpp / auth.cpp  – C++ helpers
+* test_auth.cpp        - test program
+------------------------------------------------------
 # How to run
 
 1. Start server in its folder  
@@ -20,7 +20,7 @@ The console prints
 2. Build app 
 g++ -std=c++17 test_auth.cpp auth.cpp -lcurl -o test_auth
 
-----------------------------------------------------------------------
+------------------------------------------------------
 All requests are HTTP POST with header  
 `Content-Type: application/json`
 
@@ -32,26 +32,28 @@ All requests are HTTP POST with header
 * **/validate**  body `{ "token":"<uuid>" }`  
               reply `{ "status":"ok", "valid": true | false }`
 
-
+------------------------------------------------------
 # Request & Receive Data
-Register
----------------------------------
-curl -X POST http://localhost:5050/register \
-     -H "Content-Type: application/json" \
-     -d '{"username":"user","password":"password123"}'
+------------------------------------------------------
+Programmatic **request** 
 
-Log in and capture token
----------------------------------
-token=$(curl -s -X POST http://localhost:5050/login \
-        -H "Content-Type: application/json" \
-        -d '{"username":"user","password":"password123"}' | jq -r .token)
+```cpp
+nlohmann::json body = {{"username","user"}, {"password","password123"}};
 
-Validate token
----------------------------------
-curl -X POST http://localhost:5050/validate \
-     -H "Content-Type: application/json" \
-     -d "{\"token\":\"$token\"}"
+curl_easy_setopt(curl, CURLOPT_URL,
+                 "http://localhost:5050/login");
+curl_easy_setopt(curl, CURLOPT_POSTFIELDS, body.dump().c_str());
+curl_easy_setopt(curl, CURLOPT_POSTFIELDSIZE, body.dump().size());
+```
+-------------------------------------------------------
+Programmatic **receive** 
+```cpp
+std::ostringstream resp;
+curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, writeCB);
+curl_easy_setopt(curl, CURLOPT_WRITEDATA, &resp);
+curl_easy_perform(curl);
 
-returns  {"status":"ok","valid":true}
-
-----------------------------------------------------------------------
+auto j = nlohmann::json::parse(resp.str());
+std::string token = j.value("token", "");   
+```
+--------------------------------------------------------
